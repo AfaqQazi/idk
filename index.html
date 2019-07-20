@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>canvas</title>
+	<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+<canvas height="600" width="800"></canvas>
+<script>
+
+const canvas = document.querySelector('canvas');
+const c = canvas.getContext('2d');
+
+// paddles
+const paddleHeight = 50;
+
+//FPS
+let fps = 60;
+
+// coords
+let ballX = canvas.width / 2;
+let ballXSpeed = 2;
+let ballY = 300;
+let ballYSpeed = 2;
+let ballHeight = 50;
+let ballThiccness = 50;
+
+//draw
+draw();
+
+
+window.addEventListener('click' , function(e) {
+	condition(e);
+	function execute() {
+		draw()
+	}
+	let interval = setInterval(execute , 1000/fps);
+});
+
+function condition(e) {
+	let mouseX = e.clientX;
+	let mouseY = e.clientY;
+
+	if (mouseY > ballY && mouseY < ballY + ballHeight && mouseX < ballX) {
+		ballX += ballX - mouseX;
+		return false;
+	} else if (mouseY > ballY && mouseY < ballY + ballHeight && mouseX > ballX) {
+		ballX += ballX - mouseX;
+		return false;
+	}
+
+	if (mouseX > ballX && mouseX < ballX + ballThiccness && mouseY < ballY) {
+		ballY += ballY - mouseY;
+		return false;
+	} else if (mouseX > ballX && mouseX < ballX + ballThiccness && mouseY > ballY) {
+		ballY += ballY - mouseY;
+		return false;
+	}
+
+	ballX += ballX - mouseX;
+	ballY += ballY - mouseY;
+
+
+}
+
+function draw() {
+	c.clearRect(0 , 0 , canvas.width , canvas.height);
+	c.fillStyle = 'black';
+	c.fillRect(0,0 , 800 , 600);
+	c.fillStyle = 'dodgerblue';
+	c.fillRect(ballX, ballY , ballThiccness, ballHeight);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
